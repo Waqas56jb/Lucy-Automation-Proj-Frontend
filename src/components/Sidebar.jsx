@@ -48,7 +48,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           fixed top-0 left-0 h-screen bg-gradient-to-b from-slate-800 to-slate-900 shadow-2xl z-[70] transform transition-transform duration-300 ease-in-out
           ${isOpen ? 'translate-x-0' : '-translate-x-full'}
           lg:translate-x-0 lg:static lg:z-auto lg:h-screen
-          w-56 sm:w-64
+          w-64 sm:w-72 lg:w-56
           touch-pan-y
           overflow-hidden
         `}
@@ -56,27 +56,27 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
       >
         <div className="flex flex-col h-full overflow-hidden">
           {/* Sidebar Header / Logo */}
-          <div className="relative flex items-center justify-between px-4 sm:px-6 py-4 sm:py-5 border-b border-slate-700/60 bg-slate-800/50">
+          <div className="relative flex items-center justify-between px-3 sm:px-4 lg:px-4 py-3 sm:py-4 lg:py-4 border-b border-slate-700/60 bg-slate-800/50 flex-shrink-0">
             <div className="flex items-center justify-center flex-1">
               <img 
                 src={logo} 
                 alt="Lucy Automation Logo" 
-                className="h-12 sm:h-14 w-auto object-contain transition-transform duration-300 hover:scale-105"
+                className="h-10 sm:h-12 lg:h-12 w-auto object-contain transition-transform duration-300 hover:scale-105"
               />
             </div>
             <button
               onClick={toggleSidebar}
-              className="lg:hidden p-1.5 hover:bg-slate-700/70 active:bg-slate-700 rounded-lg transition-all duration-200 active:scale-95 touch-manipulation z-10"
+              className="lg:hidden p-2 hover:bg-slate-700/70 active:bg-slate-700 rounded-lg transition-all duration-200 active:scale-95 touch-manipulation z-10"
               aria-label="Close sidebar"
               type="button"
             >
-              <FiX className="w-4 h-4 text-slate-300" />
+              <FiX className="w-5 h-5 text-slate-300" />
             </button>
           </div>
 
           {/* Navigation Menu */}
-          <nav className="flex-1 overflow-y-auto overflow-x-hidden py-4 sm:py-5 px-3 sm:px-4 min-h-0 custom-scrollbar">
-            <ul className="space-y-1.5 sm:space-y-2">
+          <nav className="flex-1 overflow-y-auto overflow-x-hidden py-2 sm:py-3 lg:py-4 px-2 sm:px-3 lg:px-3 min-h-0 custom-scrollbar">
+            <ul className="space-y-1 sm:space-y-1.5 lg:space-y-1.5">
               {menuItems.map((item) => {
                 const Icon = item.icon;
                 return (
@@ -91,15 +91,15 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                         }
                       }}
                       className={({ isActive }) =>
-                        `group flex items-center gap-2.5 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl transition-all duration-200 touch-manipulation ${
+                        `group flex items-center gap-2.5 sm:gap-3 px-3 sm:px-3 lg:px-3 py-2.5 sm:py-2.5 lg:py-2.5 rounded-lg sm:rounded-xl transition-all duration-200 touch-manipulation ${
                           isActive
-                            ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30 scale-[1.02]'
-                            : 'text-slate-300 hover:bg-slate-700/60 hover:text-white hover:scale-[1.01] active:bg-slate-700/80'
+                            ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30'
+                            : 'text-slate-300 hover:bg-slate-700/60 hover:text-white active:bg-slate-700/80'
                         }`
                       }
                     >
-                      <Icon className="w-4 h-4 flex-shrink-0 transition-transform duration-200 group-hover:scale-110" />
-                      <span className="font-medium text-xs leading-tight">{item.label}</span>
+                      <Icon className="w-5 h-5 sm:w-4 sm:h-4 flex-shrink-0 transition-transform duration-200 group-hover:scale-110" />
+                      <span className="font-medium text-sm sm:text-xs leading-tight">{item.label}</span>
                     </NavLink>
                   </li>
                 );
@@ -108,7 +108,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           </nav>
 
           {/* Settings & Logout Section - Fixed at bottom */}
-          <div className="mt-auto border-t border-slate-700/60 bg-slate-800/30 px-3 sm:px-4 py-2.5 sm:py-3 space-y-2">
+          <div className="mt-auto border-t border-slate-700/60 bg-slate-800/30 px-2 sm:px-3 lg:px-3 py-2 sm:py-2.5 lg:py-2.5 space-y-1.5 sm:space-y-2 flex-shrink-0">
             <NavLink
               to="/dashboard/settings"
               onClick={() => {
@@ -117,24 +117,24 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                 }
               }}
               className={({ isActive }) =>
-                `group flex items-center gap-2.5 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl transition-all duration-200 touch-manipulation ${
+                `group flex items-center gap-2.5 sm:gap-3 px-3 sm:px-3 lg:px-3 py-2.5 sm:py-2.5 lg:py-2.5 rounded-lg sm:rounded-xl transition-all duration-200 touch-manipulation ${
                   isActive
-                    ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30 scale-[1.02]'
-                    : 'text-slate-300 hover:bg-slate-700/60 hover:text-white hover:scale-[1.01] active:bg-slate-700/80'
+                    ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30'
+                    : 'text-slate-300 hover:bg-slate-700/60 hover:text-white active:bg-slate-700/80'
                 }`
               }
             >
-              <FiSettings className="w-4 h-4 flex-shrink-0 transition-transform duration-200 group-hover:rotate-90" />
-              <span className="font-medium text-xs">Settings</span>
+              <FiSettings className="w-5 h-5 sm:w-4 sm:h-4 flex-shrink-0 transition-transform duration-200 group-hover:rotate-90" />
+              <span className="font-medium text-sm sm:text-xs">Settings</span>
             </NavLink>
             {/* Logout button - visible on all screens */}
             <button
               onClick={handleLogout}
               type="button"
-              className="w-full flex items-center gap-2.5 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl text-slate-300 hover:bg-red-600/20 hover:text-red-400 hover:border-red-500/30 active:bg-red-600/30 transition-all duration-200 font-medium group border border-transparent hover:border-red-500/30 touch-manipulation"
+              className="w-full flex items-center gap-2.5 sm:gap-3 px-3 sm:px-3 lg:px-3 py-2.5 sm:py-2.5 lg:py-2.5 rounded-lg sm:rounded-xl text-slate-300 hover:bg-red-600/20 hover:text-red-400 active:bg-red-600/30 transition-all duration-200 font-medium group border border-transparent hover:border-red-500/30 touch-manipulation"
             >
-              <FiLogOut className="w-4 h-4 flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
-              <span className="text-xs">Logout</span>
+              <FiLogOut className="w-5 h-5 sm:w-4 sm:h-4 flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
+              <span className="text-sm sm:text-xs">Logout</span>
             </button>
           </div>
         </div>
