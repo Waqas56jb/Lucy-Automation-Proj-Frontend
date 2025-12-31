@@ -155,22 +155,22 @@ const Settings = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-0">
       {/* Header */}
-      <div className="mb-8">
-        <div className="flex items-center gap-4 mb-2">
-          <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg">
-            <FiSettings className="w-6 h-6 text-white" />
+      <div className="mb-4 sm:mb-6 lg:mb-8">
+        <div className="flex items-center gap-3 sm:gap-4 mb-2">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-600 rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg flex-shrink-0">
+            <FiSettings className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
           </div>
-          <div>
-            <h2 className="text-3xl font-bold text-gray-900">Platform Settings</h2>
-            <p className="text-gray-600 mt-1">Configure your social media platform credentials</p>
+          <div className="min-w-0">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">Platform Settings</h2>
+            <p className="text-sm sm:text-base text-gray-600 mt-1">Configure your social media platform credentials</p>
           </div>
         </div>
       </div>
 
       {/* Platform Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
         {platforms.map((platform) => {
           const Icon = platform.icon;
           const hasCredentials = credentials[platform.id] !== null;
@@ -179,7 +179,7 @@ const Settings = () => {
           return (
             <div
               key={platform.id}
-              className={`bg-white rounded-2xl shadow-lg border-2 transition-all duration-300 hover:shadow-xl ${
+              className={`bg-white rounded-lg sm:rounded-2xl shadow-lg border-2 transition-all duration-300 hover:shadow-xl ${
                 platform.hasUpload && isDragged
                   ? 'border-blue-500 bg-blue-50'
                   : platform.hasUpload && hasCredentials
@@ -191,47 +191,47 @@ const Settings = () => {
               onDrop={platform.hasUpload ? (e) => handleDrop(e, platform.id) : undefined}
             >
               {/* Platform Header */}
-              <div className={`bg-gradient-to-r ${platform.gradient} rounded-t-2xl p-6`}>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/30">
-                      <Icon className="w-8 h-8 text-white" />
+              <div className={`bg-gradient-to-r ${platform.gradient} rounded-t-lg sm:rounded-t-2xl p-4 sm:p-6`}>
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+                  <div className="flex items-center gap-3 sm:gap-4 flex-1 min-w-0">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 bg-white/20 backdrop-blur-sm rounded-lg sm:rounded-xl flex items-center justify-center border border-white/30 flex-shrink-0">
+                      <Icon className="w-5 h-5 sm:w-6 sm:h-6 lg:w-8 lg:h-8 text-white" />
                     </div>
-                    <div>
-                      <h3 className="text-2xl font-bold text-white">{platform.name}</h3>
-                      <p className="text-white/80 text-sm mt-1">{platform.description}</p>
+                    <div className="min-w-0">
+                      <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-white truncate">{platform.name}</h3>
+                      <p className="text-white/80 text-xs sm:text-sm mt-1">{platform.description}</p>
                     </div>
                   </div>
                   {platform.hasUpload && hasCredentials && (
-                    <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-2 rounded-lg border border-white/30">
-                      <FiCheckCircle className="w-5 h-5 text-green-300" />
-                      <span className="text-white text-sm font-semibold">Connected</span>
+                    <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg border border-white/30 flex-shrink-0">
+                      <FiCheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-300" />
+                      <span className="text-white text-xs sm:text-sm font-semibold">Connected</span>
                     </div>
                   )}
                   {!platform.hasUpload && (
-                    <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-2 rounded-lg border border-white/30">
-                      <span className="text-white text-sm font-semibold">Coming Soon</span>
+                    <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg border border-white/30 flex-shrink-0">
+                      <span className="text-white text-xs sm:text-sm font-semibold">Coming Soon</span>
                     </div>
                   )}
                 </div>
               </div>
 
               {/* Platform Content */}
-              <div className="p-6">
+              <div className="p-4 sm:p-6">
                 {platform.hasUpload ? (
                   /* YouTube - Has Upload Functionality */
                   hasCredentials ? (
                     /* Uploaded File Display */
-                    <div className="space-y-4">
-                      <div className="bg-green-50 border-2 border-green-200 rounded-xl p-4">
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
-                              <FiFile className="w-5 h-5 text-white" />
+                    <div className="space-y-3 sm:space-y-4">
+                      <div className="bg-green-50 border-2 border-green-200 rounded-lg sm:rounded-xl p-3 sm:p-4">
+                        <div className="flex items-center justify-between gap-2">
+                          <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+                            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-green-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                              <FiFile className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                             </div>
-                            <div>
-                              <p className="font-semibold text-gray-900">{credentials[platform.id].name}</p>
-                              <p className="text-sm text-gray-600">
+                            <div className="min-w-0 flex-1">
+                              <p className="font-semibold text-sm sm:text-base text-gray-900 truncate">{credentials[platform.id].name}</p>
+                              <p className="text-xs sm:text-sm text-gray-600">
                                 {formatFileSize(credentials[platform.id].size)} •{' '}
                                 {new Date(credentials[platform.id].lastModified).toLocaleDateString()}
                               </p>
@@ -239,20 +239,20 @@ const Settings = () => {
                           </div>
                           <button
                             onClick={() => handleRemoveFile(platform.id)}
-                            className="p-2 hover:bg-red-100 rounded-lg transition-colors group"
+                            className="p-2 hover:bg-red-100 rounded-lg transition-colors group flex-shrink-0 min-h-[32px] min-w-[32px]"
                             title="Remove credentials"
                           >
-                            <FiX className="w-5 h-5 text-red-600 group-hover:text-red-700" />
+                            <FiX className="w-4 h-4 sm:w-5 sm:h-5 text-red-600 group-hover:text-red-700" />
                           </button>
                         </div>
                       </div>
 
                       <button
                         onClick={() => getFileInputRef(platform.id)?.current?.click()}
-                        className="w-full flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-4 rounded-xl transition-colors"
+                        className="w-full flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg sm:rounded-xl transition-colors text-sm sm:text-base min-h-[44px]"
                       >
-                        <FiUpload className="w-5 h-5" />
-                        Replace Credentials File
+                        <FiUpload className="w-4 h-4 sm:w-5 sm:h-5" />
+                        <span className="whitespace-nowrap">Replace Credentials File</span>
                       </button>
                       <input
                         ref={getFileInputRef(platform.id)}
@@ -270,19 +270,19 @@ const Settings = () => {
                         onDragOver={(e) => handleDragOver(e, platform.id)}
                         onDragLeave={handleDragLeave}
                         onDrop={(e) => handleDrop(e, platform.id)}
-                        className={`flex flex-col items-center justify-center w-full h-48 border-2 border-dashed rounded-xl cursor-pointer transition-all duration-200 ${
+                        className={`flex flex-col items-center justify-center w-full h-40 sm:h-48 border-2 border-dashed rounded-lg sm:rounded-xl cursor-pointer transition-all duration-200 ${
                           isDragged
                             ? 'border-blue-500 bg-blue-50'
                             : 'border-gray-300 hover:border-blue-400 hover:bg-blue-50/30'
                         }`}
                         onClick={() => getFileInputRef(platform.id)?.current?.click()}
                       >
-                        <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                          <FiUpload className={`w-12 h-12 mb-4 ${isDragged ? 'text-blue-600' : 'text-gray-400'}`} />
-                          <p className="mb-2 text-sm font-semibold text-gray-700">
+                        <div className="flex flex-col items-center justify-center pt-4 sm:pt-5 pb-4 sm:pb-6 px-4">
+                          <FiUpload className={`w-10 h-10 sm:w-12 sm:h-12 mb-3 sm:mb-4 ${isDragged ? 'text-blue-600' : 'text-gray-400'}`} />
+                          <p className="mb-2 text-xs sm:text-sm font-semibold text-gray-700 text-center">
                             <span className="text-blue-600 hover:text-blue-700">Click to upload</span> or drag and drop
                           </p>
-                          <p className="text-xs text-gray-500">
+                          <p className="text-xs text-gray-500 text-center">
                             {platform.fileType.toUpperCase()} file only
                           </p>
                         </div>
@@ -297,9 +297,9 @@ const Settings = () => {
                       </div>
 
                       {/* Info Box */}
-                      <div className="mt-4 bg-blue-50 border border-blue-200 rounded-lg p-3 flex items-start gap-3">
-                        <FiAlertCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-                        <div className="text-sm text-blue-800">
+                      <div className="mt-3 sm:mt-4 bg-blue-50 border border-blue-200 rounded-lg p-3 flex items-start gap-2 sm:gap-3">
+                        <FiAlertCircle className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                        <div className="text-xs sm:text-sm text-blue-800">
                           <p className="font-semibold mb-1">How to get credentials:</p>
                           <p className="text-blue-700">
                             Download your {platform.name} API credentials file from the developer console and upload it here.
@@ -310,18 +310,18 @@ const Settings = () => {
                   )
                 ) : (
                   /* Other Platforms - Clickable Only (No Upload) */
-                  <div className="space-y-4">
-                    <div className="bg-gray-50 border-2 border-gray-200 rounded-xl p-8 text-center">
-                      <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <Icon className="w-8 h-8 text-gray-400" />
+                  <div className="space-y-3 sm:space-y-4">
+                    <div className="bg-gray-50 border-2 border-gray-200 rounded-lg sm:rounded-xl p-6 sm:p-8 text-center">
+                      <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                        <Icon className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-gray-400" />
                       </div>
-                      <h4 className="text-lg font-semibold text-gray-700 mb-2">Coming Soon</h4>
-                      <p className="text-sm text-gray-500 mb-4">
+                      <h4 className="text-base sm:text-lg font-semibold text-gray-700 mb-2">Coming Soon</h4>
+                      <p className="text-xs sm:text-sm text-gray-500 mb-3 sm:mb-4">
                         {platform.name} integration will be available soon
                       </p>
                       <button
                         onClick={() => toast.info(`${platform.name} integration coming soon!`)}
-                        className="px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium rounded-lg transition-colors"
+                        className="px-4 sm:px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium rounded-lg transition-colors text-sm sm:text-base min-h-[44px]"
                       >
                         Learn More
                       </button>
