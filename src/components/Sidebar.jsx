@@ -107,8 +107,8 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             </ul>
           </nav>
 
-          {/* Settings & Logout Section - Fixed at bottom */}
-          <div className="mt-auto border-t border-slate-700/60 bg-slate-800/30 px-2 sm:px-3 lg:px-3 py-2 sm:py-2.5 lg:py-2.5 space-y-1.5 sm:space-y-2 flex-shrink-0">
+          {/* Settings & Logout Section - Fixed at bottom, moved higher on mobile */}
+          <div className="mt-auto border-t border-slate-700/60 bg-slate-800/30 px-2 sm:px-3 lg:px-3 py-3 sm:py-2.5 lg:py-2.5 space-y-1.5 sm:space-y-2 flex-shrink-0 lg:pb-2.5 pb-4">
             <NavLink
               to="/dashboard/settings"
               onClick={() => {
@@ -127,11 +127,11 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
               <FiSettings className="w-5 h-5 sm:w-4 sm:h-4 flex-shrink-0 transition-transform duration-200 group-hover:rotate-90" />
               <span className="font-medium text-sm sm:text-xs">Settings</span>
             </NavLink>
-            {/* Logout button - visible on all screens */}
+            {/* Logout button - visible on all screens, more prominent on mobile */}
             <button
               onClick={handleLogout}
               type="button"
-              className="w-full flex items-center gap-2.5 sm:gap-3 px-3 sm:px-3 lg:px-3 py-2.5 sm:py-2.5 lg:py-2.5 rounded-lg sm:rounded-xl text-slate-300 hover:bg-red-600/20 hover:text-red-400 active:bg-red-600/30 transition-all duration-200 font-medium group border border-transparent hover:border-red-500/30 touch-manipulation"
+              className="w-full flex items-center gap-2.5 sm:gap-3 px-3 sm:px-3 lg:px-3 py-3 sm:py-2.5 lg:py-2.5 rounded-lg sm:rounded-xl text-slate-300 hover:bg-red-600/20 hover:text-red-400 active:bg-red-600/30 transition-all duration-200 font-medium group border border-transparent hover:border-red-500/30 touch-manipulation lg:py-2.5"
             >
               <FiLogOut className="w-5 h-5 sm:w-4 sm:h-4 flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
               <span className="text-sm sm:text-xs">Logout</span>
