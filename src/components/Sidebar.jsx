@@ -35,19 +35,22 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
       {/* Mobile Overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden transition-opacity duration-300"
+          className="fixed inset-0 bg-black bg-opacity-50 z-[60] lg:hidden transition-opacity duration-300"
           onClick={toggleSidebar}
+          aria-hidden="true"
         />
       )}
 
       {/* Sidebar */}
       <aside
         className={`
-          fixed top-0 left-0 h-screen bg-gradient-to-b from-slate-800 to-slate-900 shadow-2xl z-50 transform transition-transform duration-300 ease-in-out
+          fixed top-0 left-0 h-screen bg-gradient-to-b from-slate-800 to-slate-900 shadow-2xl z-[70] transform transition-transform duration-300 ease-in-out
           ${isOpen ? 'translate-x-0' : '-translate-x-full'}
           lg:translate-x-0 lg:static lg:z-auto lg:h-screen
           w-64 sm:w-72
+          touch-pan-y
         `}
+        style={{ WebkitOverflowScrolling: 'touch' }}
       >
         <div className="flex flex-col h-full">
           {/* Sidebar Header / Logo */}
@@ -61,10 +64,11 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             </div>
             <button
               onClick={toggleSidebar}
-              className="lg:hidden absolute top-3 right-3 sm:top-4 sm:right-4 p-2 hover:bg-slate-700/70 rounded-lg transition-all duration-200 active:scale-95"
+              className="lg:hidden absolute top-3 right-3 sm:top-4 sm:right-4 p-2.5 hover:bg-slate-700/70 active:bg-slate-700 rounded-lg transition-all duration-200 active:scale-95 touch-manipulation z-10"
               aria-label="Close sidebar"
+              type="button"
             >
-              <FiX className="w-5 h-5 text-slate-300" />
+              <FiX className="w-5 h-5 sm:w-6 sm:h-6 text-slate-300" />
             </button>
           </div>
 
@@ -85,10 +89,10 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                         }
                       }}
                       className={({ isActive }) =>
-                        `group flex items-center gap-3 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl transition-all duration-200 ${
+                        `group flex items-center gap-3 px-3 sm:px-4 py-3 sm:py-3.5 rounded-xl transition-all duration-200 touch-manipulation ${
                           isActive
                             ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30 scale-[1.02]'
-                            : 'text-slate-300 hover:bg-slate-700/60 hover:text-white hover:scale-[1.01]'
+                            : 'text-slate-300 hover:bg-slate-700/60 hover:text-white hover:scale-[1.01] active:bg-slate-700/80'
                         }`
                       }
                     >
@@ -111,10 +115,10 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                 }
               }}
               className={({ isActive }) =>
-                `group flex items-center gap-3 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl transition-all duration-200 ${
+                `group flex items-center gap-3 px-3 sm:px-4 py-3 sm:py-3.5 rounded-xl transition-all duration-200 touch-manipulation ${
                   isActive
                     ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30 scale-[1.02]'
-                    : 'text-slate-300 hover:bg-slate-700/60 hover:text-white hover:scale-[1.01]'
+                    : 'text-slate-300 hover:bg-slate-700/60 hover:text-white hover:scale-[1.01] active:bg-slate-700/80'
                 }`
               }
             >
@@ -123,7 +127,8 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             </NavLink>
             <button
               onClick={handleLogout}
-              className="w-full flex items-center gap-3 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl text-slate-300 hover:bg-red-600/20 hover:text-red-400 hover:border-red-500/30 transition-all duration-200 font-medium group border border-transparent hover:border-red-500/30"
+              type="button"
+              className="w-full flex items-center gap-3 px-3 sm:px-4 py-3 sm:py-3.5 rounded-xl text-slate-300 hover:bg-red-600/20 hover:text-red-400 hover:border-red-500/30 active:bg-red-600/30 transition-all duration-200 font-medium group border border-transparent hover:border-red-500/30 touch-manipulation"
             >
               <FiLogOut className="w-5 h-5 flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
               <span className="text-sm">Logout</span>

@@ -29,19 +29,20 @@ const DashboardLayout = () => {
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col lg:ml-0 overflow-hidden bg-gray-50 h-screen">
+      <div className="flex-1 flex flex-col lg:ml-0 overflow-hidden bg-gray-50 h-screen w-full lg:w-auto">
         {/* Top Header with Toggle Button */}
         <header className="bg-white shadow-sm sticky top-0 z-30 border-b border-gray-200">
-          <div className="px-4 sm:px-6 lg:px-8 py-4">
+          <div className="px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
             <div className="flex items-center gap-4">
               <button
                 onClick={toggleSidebar}
-                className="lg:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                className="lg:hidden p-2 hover:bg-gray-100 active:bg-gray-200 rounded-lg transition-colors touch-manipulation"
                 aria-label="Toggle sidebar"
+                type="button"
               >
                 <FiMenu className="w-6 h-6 text-gray-600" />
               </button>
-              <h1 className="text-2xl font-bold text-gray-800">{getPageTitle()}</h1>
+              <h1 className="text-xl sm:text-2xl font-bold text-gray-800">{getPageTitle()}</h1>
             </div>
           </div>
         </header>

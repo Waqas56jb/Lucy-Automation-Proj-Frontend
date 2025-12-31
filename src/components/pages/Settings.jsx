@@ -49,6 +49,7 @@ const Settings = () => {
       description: 'Upload your YouTube API credentials JSON file',
       fileType: '.json',
       accept: '.json,application/json',
+      hasUpload: true, // Only YouTube has upload functionality
     },
     {
       id: 'tiktok',
@@ -56,9 +57,10 @@ const Settings = () => {
       icon: SiTiktok,
       color: 'bg-black',
       gradient: 'from-gray-900 to-black',
-      description: 'Configure TikTok API credentials',
+      description: 'Coming soon - Configure TikTok API credentials',
       fileType: '.json',
       accept: '.json,application/json',
+      hasUpload: false,
     },
     {
       id: 'facebook',
@@ -66,9 +68,10 @@ const Settings = () => {
       icon: SiFacebook,
       color: 'bg-blue-600',
       gradient: 'from-blue-600 to-blue-700',
-      description: 'Configure Facebook API credentials',
+      description: 'Coming soon - Configure Facebook API credentials',
       fileType: '.json',
       accept: '.json,application/json',
+      hasUpload: false,
     },
     {
       id: 'linkedin',
@@ -76,9 +79,10 @@ const Settings = () => {
       icon: SiLinkedin,
       color: 'bg-blue-700',
       gradient: 'from-blue-700 to-blue-800',
-      description: 'Configure LinkedIn API credentials',
+      description: 'Coming soon - Configure LinkedIn API credentials',
       fileType: '.json',
       accept: '.json,application/json',
+      hasUpload: false,
     },
   ];
 
@@ -176,15 +180,15 @@ const Settings = () => {
             <div
               key={platform.id}
               className={`bg-white rounded-2xl shadow-lg border-2 transition-all duration-300 hover:shadow-xl ${
-                isDragged
+                platform.hasUpload && isDragged
                   ? 'border-blue-500 bg-blue-50'
-                  : hasCredentials
+                  : platform.hasUpload && hasCredentials
                   ? 'border-green-200'
                   : 'border-gray-200'
               }`}
-              onDragOver={(e) => handleDragOver(e, platform.id)}
-              onDragLeave={handleDragLeave}
-              onDrop={(e) => handleDrop(e, platform.id)}
+              onDragOver={platform.hasUpload ? (e) => handleDragOver(e, platform.id) : undefined}
+              onDragLeave={platform.hasUpload ? handleDragLeave : undefined}
+              onDrop={platform.hasUpload ? (e) => handleDrop(e, platform.id) : undefined}
             >
               {/* Platform Header */}
               <div className={`bg-gradient-to-r ${platform.gradient} rounded-t-2xl p-6`}>
@@ -198,10 +202,15 @@ const Settings = () => {
                       <p className="text-white/80 text-sm mt-1">{platform.description}</p>
                     </div>
                   </div>
-                  {hasCredentials && (
+                  {platform.hasUpload && hasCredentials && (
                     <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-2 rounded-lg border border-white/30">
                       <FiCheckCircle className="w-5 h-5 text-green-300" />
                       <span className="text-white text-sm font-semibold">Connected</span>
+                    </div>
+                  )}
+                  {!platform.hasUpload && (
+                    <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-2 rounded-lg border border-white/30">
+                      <span className="text-white text-sm font-semibold">Coming Soon</span>
                     </div>
                   )}
                 </div>
@@ -209,87 +218,113 @@ const Settings = () => {
 
               {/* Platform Content */}
               <div className="p-6">
-                {hasCredentials ? (
-                  /* Uploaded File Display */
-                  <div className="space-y-4">
-                    <div className="bg-green-50 border-2 border-green-200 rounded-xl p-4">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
-                            <FiFile className="w-5 h-5 text-white" />
+                {platform.hasUpload ? (
+                  /* YouTube - Has Upload Functionality */
+                  hasCredentials ? (
+                    /* Uploaded File Display */
+                    <div className="space-y-4">
+                      <div className="bg-green-50 border-2 border-green-200 rounded-xl p-4">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
+                              <FiFile className="w-5 h-5 text-white" />
+                            </div>
+                            <div>
+                              <p className="font-semibold text-gray-900">{credentials[platform.id].name}</p>
+                              <p className="text-sm text-gray-600">
+                                {formatFileSize(credentials[platform.id].size)} •{' '}
+                                {new Date(credentials[platform.id].lastModified).toLocaleDateString()}
+                              </p>
+                            </div>
                           </div>
-                          <div>
-                            <p className="font-semibold text-gray-900">{credentials[platform.id].name}</p>
-                            <p className="text-sm text-gray-600">
-                              {formatFileSize(credentials[platform.id].size)} •{' '}
-                              {new Date(credentials[platform.id].lastModified).toLocaleDateString()}
-                            </p>
-                          </div>
+                          <button
+                            onClick={() => handleRemoveFile(platform.id)}
+                            className="p-2 hover:bg-red-100 rounded-lg transition-colors group"
+                            title="Remove credentials"
+                          >
+                            <FiX className="w-5 h-5 text-red-600 group-hover:text-red-700" />
+                          </button>
                         </div>
-                        <button
-                          onClick={() => handleRemoveFile(platform.id)}
-                          className="p-2 hover:bg-red-100 rounded-lg transition-colors group"
-                          title="Remove credentials"
-                        >
-                          <FiX className="w-5 h-5 text-red-600 group-hover:text-red-700" />
-                        </button>
                       </div>
-                    </div>
 
-                    <button
-                      onClick={() => getFileInputRef(platform.id)?.current?.click()}
-                      className="w-full flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-4 rounded-xl transition-colors"
-                    >
-                      <FiUpload className="w-5 h-5" />
-                      Replace Credentials File
-                    </button>
-                    <input
-                      ref={getFileInputRef(platform.id)}
-                      type="file"
-                      accept={platform.accept}
-                      onChange={(e) => handleFileInputChange(e, platform.id)}
-                      className="hidden"
-                      id={`file-input-${platform.id}`}
-                    />
-                  </div>
-                ) : (
-                  /* File Upload Area */
-                  <div>
-                    <label
-                      htmlFor={`file-input-${platform.id}`}
-                      className={`flex flex-col items-center justify-center w-full h-48 border-2 border-dashed rounded-xl cursor-pointer transition-all duration-200 ${
-                        isDragged
-                          ? 'border-blue-500 bg-blue-50'
-                          : 'border-gray-300 hover:border-blue-400 hover:bg-blue-50/30'
-                      }`}
-                    >
-                      <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                        <FiUpload className={`w-12 h-12 mb-4 ${isDragged ? 'text-blue-600' : 'text-gray-400'}`} />
-                        <p className="mb-2 text-sm font-semibold text-gray-700">
-                          <span className="text-blue-600 hover:text-blue-700">Click to upload</span> or drag and drop
-                        </p>
-                        <p className="text-xs text-gray-500">
-                          {platform.fileType.toUpperCase()} file only
-                        </p>
-                      </div>
+                      <button
+                        onClick={() => getFileInputRef(platform.id)?.current?.click()}
+                        className="w-full flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-4 rounded-xl transition-colors"
+                      >
+                        <FiUpload className="w-5 h-5" />
+                        Replace Credentials File
+                      </button>
                       <input
+                        ref={getFileInputRef(platform.id)}
                         type="file"
-                        id={`file-input-${platform.id}`}
                         accept={platform.accept}
                         onChange={(e) => handleFileInputChange(e, platform.id)}
                         className="hidden"
+                        id={`file-input-${platform.id}`}
                       />
-                    </label>
-
-                    {/* Info Box */}
-                    <div className="mt-4 bg-blue-50 border border-blue-200 rounded-lg p-3 flex items-start gap-3">
-                      <FiAlertCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-                      <div className="text-sm text-blue-800">
-                        <p className="font-semibold mb-1">How to get credentials:</p>
-                        <p className="text-blue-700">
-                          Download your {platform.name} API credentials file from the developer console and upload it here.
-                        </p>
+                    </div>
+                  ) : (
+                    /* File Upload Area */
+                    <div>
+                      <div
+                        onDragOver={(e) => handleDragOver(e, platform.id)}
+                        onDragLeave={handleDragLeave}
+                        onDrop={(e) => handleDrop(e, platform.id)}
+                        className={`flex flex-col items-center justify-center w-full h-48 border-2 border-dashed rounded-xl cursor-pointer transition-all duration-200 ${
+                          isDragged
+                            ? 'border-blue-500 bg-blue-50'
+                            : 'border-gray-300 hover:border-blue-400 hover:bg-blue-50/30'
+                        }`}
+                        onClick={() => getFileInputRef(platform.id)?.current?.click()}
+                      >
+                        <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                          <FiUpload className={`w-12 h-12 mb-4 ${isDragged ? 'text-blue-600' : 'text-gray-400'}`} />
+                          <p className="mb-2 text-sm font-semibold text-gray-700">
+                            <span className="text-blue-600 hover:text-blue-700">Click to upload</span> or drag and drop
+                          </p>
+                          <p className="text-xs text-gray-500">
+                            {platform.fileType.toUpperCase()} file only
+                          </p>
+                        </div>
+                        <input
+                          ref={getFileInputRef(platform.id)}
+                          type="file"
+                          id={`file-input-${platform.id}`}
+                          accept={platform.accept}
+                          onChange={(e) => handleFileInputChange(e, platform.id)}
+                          className="hidden"
+                        />
                       </div>
+
+                      {/* Info Box */}
+                      <div className="mt-4 bg-blue-50 border border-blue-200 rounded-lg p-3 flex items-start gap-3">
+                        <FiAlertCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                        <div className="text-sm text-blue-800">
+                          <p className="font-semibold mb-1">How to get credentials:</p>
+                          <p className="text-blue-700">
+                            Download your {platform.name} API credentials file from the developer console and upload it here.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                ) : (
+                  /* Other Platforms - Clickable Only (No Upload) */
+                  <div className="space-y-4">
+                    <div className="bg-gray-50 border-2 border-gray-200 rounded-xl p-8 text-center">
+                      <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <Icon className="w-8 h-8 text-gray-400" />
+                      </div>
+                      <h4 className="text-lg font-semibold text-gray-700 mb-2">Coming Soon</h4>
+                      <p className="text-sm text-gray-500 mb-4">
+                        {platform.name} integration will be available soon
+                      </p>
+                      <button
+                        onClick={() => toast.info(`${platform.name} integration coming soon!`)}
+                        className="px-6 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium rounded-lg transition-colors"
+                      >
+                        Learn More
+                      </button>
                     </div>
                   </div>
                 )}
