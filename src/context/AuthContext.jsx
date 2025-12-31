@@ -20,16 +20,30 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     // Check for existing session on mount
-    const sessionUser = Cookies.get('user_session');
-    if (sessionUser) {
+    const checkSession = () => {
       try {
-        const userData = JSON.parse(sessionUser);
-        setUser(userData);
+        const sessionUser = Cookies.get('user_session');
+        if (sessionUser) {
+          try {
+            const userData = JSON.parse(sessionUser);
+            setUser(userData);
+          } catch (error) {
+            console.error('Error parsing user session:', error);
+            Cookies.remove('user_session');
+            setUser(null);
+          }
+        } else {
+          setUser(null);
+        }
       } catch (error) {
-        Cookies.remove('user_session');
+        console.error('Error checking session:', error);
+        setUser(null);
+      } finally {
+        setLoading(false);
       }
-    }
-    setLoading(false);
+    };
+
+    checkSession();
   }, []);
 
   const login = async (email, password) => {

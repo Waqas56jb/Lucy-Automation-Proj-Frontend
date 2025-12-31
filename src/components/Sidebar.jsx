@@ -50,10 +50,11 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           lg:translate-x-0 lg:static lg:z-auto lg:h-screen
           w-64 sm:w-72
           touch-pan-y
+          overflow-hidden
         `}
         style={{ WebkitOverflowScrolling: 'touch' }}
       >
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-full overflow-hidden">
           {/* Sidebar Header / Logo */}
           <div className="relative flex items-center justify-between px-4 sm:px-6 py-4 sm:py-5 border-b border-slate-700/60 bg-slate-800/50">
             <div className="flex items-center justify-center flex-1">
@@ -126,11 +127,11 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
               <FiSettings className="w-5 h-5 flex-shrink-0 transition-transform duration-200 group-hover:rotate-90" />
               <span className="font-medium text-sm">Settings</span>
             </NavLink>
-            {/* Logout button - hidden on mobile */}
+            {/* Logout button - visible on all screens */}
             <button
               onClick={handleLogout}
               type="button"
-              className="hidden lg:flex w-full items-center gap-3 px-3 sm:px-4 py-3 sm:py-3.5 rounded-xl text-slate-300 hover:bg-red-600/20 hover:text-red-400 hover:border-red-500/30 active:bg-red-600/30 transition-all duration-200 font-medium group border border-transparent hover:border-red-500/30 touch-manipulation"
+              className="w-full flex items-center gap-3 px-3 sm:px-4 py-3 sm:py-3.5 rounded-xl text-slate-300 hover:bg-red-600/20 hover:text-red-400 hover:border-red-500/30 active:bg-red-600/30 transition-all duration-200 font-medium group border border-transparent hover:border-red-500/30 touch-manipulation"
             >
               <FiLogOut className="w-5 h-5 flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
               <span className="text-sm">Logout</span>
