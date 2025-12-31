@@ -124,3 +124,93 @@ body, html {
   overflow-x: hidden;
 }
 
+/* Toast Notification Styling - Centered and Better UX */
+.Toastify__toast-container {
+  width: 100%;
+  max-width: 420px;
+  padding: 0 16px;
+}
+
+.Toastify__toast-container--top-center {
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.Toastify__toast {
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 16px;
+  min-height: 56px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.Toastify__toast--success {
+  background: #10b981;
+  color: white;
+}
+
+.Toastify__toast--error {
+  background: #ef4444;
+  color: white;
+}
+
+.Toastify__toast--info {
+  background: #3b82f6;
+  color: white;
+}
+
+.Toastify__toast--warning {
+  background: #f59e0b;
+  color: white;
+}
+
+.Toastify__toast-body {
+  padding: 0;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.Toastify__close-button {
+  color: white;
+  opacity: 0.8;
+  width: 20px;
+  height: 20px;
+}
+
+.Toastify__close-button:hover {
+  opacity: 1;
+}
+
+.Toastify__progress-bar {
+  height: 3px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Mobile Toast Improvements */
+@media (max-width: 640px) {
+  .Toastify__toast-container {
+    max-width: calc(100% - 32px);
+    padding: 0;
+  }
+
+  .Toastify__toast-container--top-center {
+    top: 12px;
+  }
+
+  .Toastify__toast {
+    border-radius: 10px;
+    padding: 14px;
+    min-height: 52px;
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+
+  .Toastify__close-button {
+    width: 18px;
+    height: 18px;
+  }
+}
+

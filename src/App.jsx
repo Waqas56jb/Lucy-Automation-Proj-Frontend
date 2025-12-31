@@ -50,16 +50,20 @@ function App() {
             <Route path="*" element={<Navigate to="/login" replace />} />
           </Routes>
           <ToastContainer
-            position="top-right"
+            position="top-center"
             autoClose={3000}
-            hideProgressBar={false}
-            newestOnTop={false}
+            hideProgressBar={true}
+            newestOnTop={true}
             closeOnClick
             rtl={false}
             pauseOnFocusLoss
-            draggable
+            draggable={false}
             pauseOnHover
             theme="light"
+            limit={3}
+            className="toast-container"
+            toastClassName="toast-message"
+            bodyClassName="toast-body"
           />
         </Router>
       </AuthProvider>
