@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { 
@@ -49,6 +49,15 @@ import {
 const Dashboard = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(windowWidth);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Dummy data for charts
   const weeklyData = [
@@ -238,18 +247,18 @@ const Dashboard = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6 lg:mb-8">
         {/* Weekly Activity Line Chart */}
         <div className="bg-white rounded-lg sm:rounded-xl shadow-md border border-gray-100 p-4 sm:p-6">
-          <div className="flex items-center justify-between mb-4">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-3 sm:mb-4">
             <div className="flex items-center gap-2">
-              <FiBarChart2 className="w-5 h-5 text-blue-600" />
-              <h3 className="text-lg sm:text-xl font-bold text-gray-900">Weekly Activity</h3>
+              <FiBarChart2 className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
+              <h3 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900">Weekly Activity</h3>
             </div>
             <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">Last 7 days</span>
           </div>
-          <ResponsiveContainer width="100%" height={250}>
+          <ResponsiveContainer width="100%" height={windowWidth < 640 ? 200 : windowWidth < 1024 ? 250 : 280}>
             <LineChart data={weeklyData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-              <XAxis dataKey="name" stroke="#6b7280" fontSize={12} />
-              <YAxis stroke="#6b7280" fontSize={12} />
+              <XAxis dataKey="name" stroke="#6b7280" fontSize={windowWidth < 640 ? 10 : 12} />
+              <YAxis stroke="#6b7280" fontSize={windowWidth < 640 ? 10 : 12} />
               <Tooltip 
                 contentStyle={{ 
                   backgroundColor: '#fff', 
@@ -269,21 +278,21 @@ const Dashboard = () => {
 
         {/* Platform Distribution Pie Chart */}
         <div className="bg-white rounded-lg sm:rounded-xl shadow-md border border-gray-100 p-4 sm:p-6">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-3 sm:mb-4">
             <div className="flex items-center gap-2">
-              <FiPieChart className="w-5 h-5 text-purple-600" />
-              <h3 className="text-lg sm:text-xl font-bold text-gray-900">Platform Distribution</h3>
+              <FiPieChart className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" />
+              <h3 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900">Platform Distribution</h3>
             </div>
           </div>
-          <ResponsiveContainer width="100%" height={250}>
+          <ResponsiveContainer width="100%" height={windowWidth < 640 ? 200 : windowWidth < 1024 ? 250 : 280}>
             <PieChart>
               <Pie
                 data={platformData}
                 cx="50%"
                 cy="50%"
                 labelLine={false}
-                label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                outerRadius={80}
+                label={({ name, percent }) => windowWidth < 640 ? `${(percent * 100).toFixed(0)}%` : `${name} ${(percent * 100).toFixed(0)}%`}
+                outerRadius={windowWidth < 640 ? 60 : windowWidth < 1024 ? 70 : 80}
                 fill="#8884d8"
                 dataKey="value"
               >
@@ -301,14 +310,14 @@ const Dashboard = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 mb-4 sm:mb-6 lg:mb-8">
         {/* Monthly Performance Area Chart */}
         <div className="lg:col-span-2 bg-white rounded-lg sm:rounded-xl shadow-md border border-gray-100 p-4 sm:p-6">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-3 sm:mb-4">
             <div className="flex items-center gap-2">
-              <FiTrendingUp className="w-5 h-5 text-green-600" />
-              <h3 className="text-lg sm:text-xl font-bold text-gray-900">Monthly Performance</h3>
+              <FiTrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
+              <h3 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900">Monthly Performance</h3>
             </div>
             <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">6 months</span>
           </div>
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer width="100%" height={windowWidth < 640 ? 220 : windowWidth < 1024 ? 280 : 320}>
             <AreaChart data={monthlyData}>
               <defs>
                 <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
@@ -321,8 +330,8 @@ const Dashboard = () => {
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-              <XAxis dataKey="month" stroke="#6b7280" fontSize={12} />
-              <YAxis stroke="#6b7280" fontSize={12} />
+              <XAxis dataKey="month" stroke="#6b7280" fontSize={windowWidth < 640 ? 10 : 12} />
+              <YAxis stroke="#6b7280" fontSize={windowWidth < 640 ? 10 : 12} />
               <Tooltip 
                 contentStyle={{ 
                   backgroundColor: '#fff', 
@@ -340,9 +349,9 @@ const Dashboard = () => {
 
         {/* Key Insights */}
         <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg sm:rounded-xl shadow-md border border-blue-100 p-4 sm:p-6">
-          <div className="flex items-center gap-2 mb-4">
-            <FiEye className="w-5 h-5 text-blue-600" />
-            <h3 className="text-lg sm:text-xl font-bold text-gray-900">Key Insights</h3>
+          <div className="flex items-center gap-2 mb-3 sm:mb-4">
+            <FiEye className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
+            <h3 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900">Key Insights</h3>
           </div>
           <div className="space-y-3">
             {insights.map((insight, index) => {
@@ -354,29 +363,29 @@ const Dashboard = () => {
                     <p className="text-xs text-gray-600 font-medium">{insight.title}</p>
                   </div>
                   <p className="text-sm font-bold text-gray-900">{insight.value}</p>
-                </div>
+            </div>
               );
             })}
           </div>
         </div>
-      </div>
+        </div>
 
       {/* Performance Metrics & Recent Activity */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6 lg:mb-8">
         {/* Performance Metrics Bar Chart */}
         <div className="bg-white rounded-lg sm:rounded-xl shadow-md border border-gray-100 p-4 sm:p-6">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-3 sm:mb-4">
             <div className="flex items-center gap-2">
-              <FiActivity className="w-5 h-5 text-green-600" />
-              <h3 className="text-lg sm:text-xl font-bold text-gray-900">Performance Metrics</h3>
+              <FiActivity className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
+              <h3 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900">Performance Metrics</h3>
             </div>
             <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">4 weeks</span>
           </div>
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer width="100%" height={windowWidth < 640 ? 220 : windowWidth < 1024 ? 280 : 320}>
             <BarChart data={performanceData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-              <XAxis dataKey="name" stroke="#6b7280" fontSize={12} />
-              <YAxis stroke="#6b7280" fontSize={12} />
+              <XAxis dataKey="name" stroke="#6b7280" fontSize={windowWidth < 640 ? 10 : 12} />
+              <YAxis stroke="#6b7280" fontSize={windowWidth < 640 ? 10 : 12} />
               <Tooltip 
                 contentStyle={{ 
                   backgroundColor: '#fff', 
@@ -395,9 +404,9 @@ const Dashboard = () => {
 
         {/* Summary Statistics */}
         <div className="bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-50 rounded-lg sm:rounded-xl shadow-md border border-indigo-100 p-4 sm:p-6">
-          <div className="flex items-center gap-2 mb-4">
-            <FiBarChart2 className="w-5 h-5 text-indigo-600" />
-            <h3 className="text-lg sm:text-xl font-bold text-gray-900">Performance Summary</h3>
+          <div className="flex items-center gap-2 mb-3 sm:mb-4">
+            <FiBarChart2 className="w-4 h-4 sm:w-5 sm:h-5 text-indigo-600" />
+            <h3 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900">Performance Summary</h3>
           </div>
           <div className="space-y-4">
             <div className="bg-white/80 backdrop-blur-sm rounded-lg p-3 border border-indigo-100">
@@ -442,52 +451,52 @@ const Dashboard = () => {
 
       {/* Platform Performance Details */}
       <div className="bg-white rounded-lg sm:rounded-xl shadow-md border border-gray-100 p-4 sm:p-6 mb-4 sm:mb-6 lg:mb-8">
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between mb-3 sm:mb-4">
           <div className="flex items-center gap-2">
-            <FiGlobe className="w-5 h-5 text-blue-600" />
-            <h3 className="text-lg sm:text-xl font-bold text-gray-900">Platform Performance Breakdown</h3>
+            <FiGlobe className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
+            <h3 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900">Platform Performance Breakdown</h3>
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           {engagementData.map((platform, index) => (
-            <div key={index} className="bg-gradient-to-br from-gray-50 to-white rounded-lg p-4 border border-gray-200 hover:shadow-lg transition-all">
-              <div className="flex items-center justify-between mb-3">
-                <h4 className="text-sm font-bold text-gray-900">{platform.platform}</h4>
+            <div key={index} className="bg-gradient-to-br from-gray-50 to-white rounded-lg p-3 sm:p-4 border border-gray-200 hover:shadow-lg transition-all">
+              <div className="flex items-center justify-between mb-2 sm:mb-3">
+                <h4 className="text-xs sm:text-sm font-bold text-gray-900">{platform.platform}</h4>
                 <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: platformData.find(p => p.name === platform.platform)?.color + '20' }}>
                   <FiTrendingUp className="w-4 h-4" style={{ color: platformData.find(p => p.name === platform.platform)?.color }} />
                 </div>
               </div>
-              <div className="space-y-2">
+              <div className="space-y-1.5 sm:space-y-2">
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-gray-600 flex items-center gap-1">
-                    <FiEye className="w-3 h-3" /> Views
+                    <FiEye className="w-3 h-3 flex-shrink-0" /> <span className="hidden sm:inline">Views</span>
                   </span>
                   <span className="text-xs font-semibold text-gray-900">{(platform.views / 1000).toFixed(0)}K</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-gray-600 flex items-center gap-1">
-                    <FiThumbsUp className="w-3 h-3" /> Likes
+                    <FiThumbsUp className="w-3 h-3 flex-shrink-0" /> <span className="hidden sm:inline">Likes</span>
                   </span>
                   <span className="text-xs font-semibold text-gray-900">{(platform.likes / 1000).toFixed(1)}K</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-gray-600 flex items-center gap-1">
-                    <FiMessageSquare className="w-3 h-3" /> Comments
+                    <FiMessageSquare className="w-3 h-3 flex-shrink-0" /> <span className="hidden sm:inline">Comments</span>
                   </span>
                   <span className="text-xs font-semibold text-gray-900">{platform.comments}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-gray-600 flex items-center gap-1">
-                    <FiShare2 className="w-3 h-3" /> Shares
+                    <FiShare2 className="w-3 h-3 flex-shrink-0" /> <span className="hidden sm:inline">Shares</span>
                   </span>
                   <span className="text-xs font-semibold text-gray-900">{platform.shares}</span>
                 </div>
               </div>
-              <div className="mt-3 pt-3 border-t border-gray-200">
+              <div className="mt-2 sm:mt-3 pt-2 sm:pt-3 border-t border-gray-200">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-gray-600">Engagement Rate</span>
+                  <span className="text-xs text-gray-600">Engagement</span>
                   <span className="text-xs font-bold text-green-600">
-                    {((platform.likes + platform.comments + platform.shares) / platform.views * 100).toFixed(2)}%
+                    {((platform.likes + platform.comments + platform.shares) / platform.views * 100).toFixed(1)}%
                   </span>
                 </div>
               </div>
@@ -544,7 +553,7 @@ const Dashboard = () => {
           };
           return (
             <div key={index} className="bg-white rounded-lg sm:rounded-xl shadow-md border border-gray-100 p-4 sm:p-6 hover:shadow-xl transition-all duration-300">
-              <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center justify-between mb-3">
                 <div className={`w-12 h-12 ${colorClasses[metric.color]} rounded-xl flex items-center justify-center`}>
                   <Icon className="w-6 h-6" />
                 </div>
@@ -561,14 +570,14 @@ const Dashboard = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6 lg:mb-8">
         {/* Hourly Activity Chart */}
         <div className="bg-white rounded-lg sm:rounded-xl shadow-md border border-gray-100 p-4 sm:p-6">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-3 sm:mb-4">
             <div className="flex items-center gap-2">
-              <FiClock className="w-5 h-5 text-indigo-600" />
-              <h3 className="text-lg sm:text-xl font-bold text-gray-900">Hourly Activity Pattern</h3>
+              <FiClock className="w-4 h-4 sm:w-5 sm:h-5 text-indigo-600" />
+              <h3 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900">Hourly Activity Pattern</h3>
             </div>
             <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">24 hours</span>
           </div>
-          <ResponsiveContainer width="100%" height={280}>
+          <ResponsiveContainer width="100%" height={windowWidth < 640 ? 200 : windowWidth < 1024 ? 250 : 300}>
             <AreaChart data={hourlyData}>
               <defs>
                 <linearGradient id="colorActivity" x1="0" y1="0" x2="0" y2="1">
@@ -577,8 +586,8 @@ const Dashboard = () => {
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-              <XAxis dataKey="hour" stroke="#6b7280" fontSize={11} />
-              <YAxis stroke="#6b7280" fontSize={11} />
+              <XAxis dataKey="hour" stroke="#6b7280" fontSize={windowWidth < 640 ? 9 : 11} />
+              <YAxis stroke="#6b7280" fontSize={windowWidth < 640 ? 9 : 11} />
               <Tooltip 
                 contentStyle={{ 
                   backgroundColor: '#fff', 
@@ -594,17 +603,17 @@ const Dashboard = () => {
 
         {/* Engagement Metrics */}
         <div className="bg-white rounded-lg sm:rounded-xl shadow-md border border-gray-100 p-4 sm:p-6">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between mb-3 sm:mb-4">
             <div className="flex items-center gap-2">
-              <FiHeart className="w-5 h-5 text-pink-600" />
-              <h3 className="text-lg sm:text-xl font-bold text-gray-900">Platform Engagement</h3>
+              <FiHeart className="w-4 h-4 sm:w-5 sm:h-5 text-pink-600" />
+              <h3 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900">Platform Engagement</h3>
             </div>
           </div>
-          <ResponsiveContainer width="100%" height={280}>
+          <ResponsiveContainer width="100%" height={windowWidth < 640 ? 200 : windowWidth < 1024 ? 250 : 300}>
             <BarChart data={engagementData} layout="vertical">
               <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-              <XAxis type="number" stroke="#6b7280" fontSize={11} />
-              <YAxis dataKey="platform" type="category" stroke="#6b7280" fontSize={11} width={80} />
+              <XAxis type="number" stroke="#6b7280" fontSize={windowWidth < 640 ? 9 : 11} />
+              <YAxis dataKey="platform" type="category" stroke="#6b7280" fontSize={windowWidth < 640 ? 9 : 11} width={windowWidth < 640 ? 60 : 80} />
               <Tooltip 
                 contentStyle={{ 
                   backgroundColor: '#fff', 
@@ -621,25 +630,25 @@ const Dashboard = () => {
             </BarChart>
           </ResponsiveContainer>
         </div>
-      </div>
+        </div>
 
       {/* Growth Trends & Top Content */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6 lg:mb-8">
         {/* Growth Trends */}
         <div className="bg-white rounded-lg sm:rounded-xl shadow-md border border-gray-100 p-4 sm:p-6">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-3 sm:mb-4">
             <div className="flex items-center gap-2">
-              <FiTrendingUp className="w-5 h-5 text-green-600" />
-              <h3 className="text-lg sm:text-xl font-bold text-gray-900">Quarterly Growth Trends</h3>
+              <FiTrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
+              <h3 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900">Quarterly Growth Trends</h3>
             </div>
             <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">2024</span>
           </div>
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer width="100%" height={windowWidth < 640 ? 220 : windowWidth < 1024 ? 280 : 320}>
             <LineChart data={growthData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-              <XAxis dataKey="period" stroke="#6b7280" fontSize={12} />
-              <YAxis yAxisId="left" stroke="#6b7280" fontSize={12} />
-              <YAxis yAxisId="right" orientation="right" stroke="#6b7280" fontSize={12} />
+              <XAxis dataKey="period" stroke="#6b7280" fontSize={windowWidth < 640 ? 10 : 12} />
+              <YAxis yAxisId="left" stroke="#6b7280" fontSize={windowWidth < 640 ? 10 : 12} />
+              <YAxis yAxisId="right" orientation="right" stroke="#6b7280" fontSize={windowWidth < 640 ? 10 : 12} />
               <Tooltip 
                 contentStyle={{ 
                   backgroundColor: '#fff', 
@@ -658,22 +667,22 @@ const Dashboard = () => {
 
         {/* Top Performing Content */}
         <div className="bg-white rounded-lg sm:rounded-xl shadow-md border border-gray-100 p-4 sm:p-6">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-3 sm:mb-4">
             <div className="flex items-center gap-2">
-              <FiAward className="w-5 h-5 text-yellow-600" />
-              <h3 className="text-lg sm:text-xl font-bold text-gray-900">Top Performing Content</h3>
+              <FiAward className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-600" />
+              <h3 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900">Top Performing Content</h3>
             </div>
             <button className="text-xs text-blue-600 hover:text-blue-700 font-medium">View All</button>
           </div>
           <div className="space-y-3">
             {topContent.map((content) => (
-              <div key={content.id} className="p-3 bg-gradient-to-r from-gray-50 to-white rounded-lg border border-gray-100 hover:shadow-md transition-all">
+              <div key={content.id} className="p-2.5 sm:p-3 bg-gradient-to-r from-gray-50 to-white rounded-lg border border-gray-100 hover:shadow-md transition-all">
                 <div className="flex items-start justify-between mb-2">
                   <div className="flex-1 min-w-0">
-                    <h4 className="text-sm font-semibold text-gray-900 mb-1 truncate">{content.title}</h4>
-                    <div className="flex items-center gap-2 mb-2">
+                    <h4 className="text-xs sm:text-sm font-semibold text-gray-900 mb-1 truncate">{content.title}</h4>
+                    <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-1.5 sm:mb-2">
                       <span className="text-xs text-gray-600">{content.platform}</span>
-                      <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
+                      <span className={`text-xs px-1.5 sm:px-2 py-0.5 rounded-full font-medium ${
                         content.status === 'trending' ? 'bg-red-100 text-red-800' :
                         content.status === 'viral' ? 'bg-purple-100 text-purple-800' :
                         content.status === 'popular' ? 'bg-blue-100 text-blue-800' :
@@ -684,18 +693,18 @@ const Dashboard = () => {
                     </div>
                   </div>
                 </div>
-                <div className="grid grid-cols-3 gap-2 text-xs">
+                <div className="grid grid-cols-3 gap-1.5 sm:gap-2 text-xs">
                   <div>
-                    <p className="text-gray-500">Views</p>
-                    <p className="font-semibold text-gray-900">{content.views.toLocaleString()}</p>
+                    <p className="text-gray-500 text-xs">Views</p>
+                    <p className="font-semibold text-gray-900 text-xs sm:text-sm">{content.views.toLocaleString()}</p>
                   </div>
                   <div>
-                    <p className="text-gray-500">Engagement</p>
-                    <p className="font-semibold text-gray-900">{content.engagement}%</p>
+                    <p className="text-gray-500 text-xs">Engagement</p>
+                    <p className="font-semibold text-gray-900 text-xs sm:text-sm">{content.engagement}%</p>
                   </div>
                   <div>
-                    <p className="text-gray-500">Status</p>
-                    <p className="font-semibold text-green-600">Active</p>
+                    <p className="text-gray-500 text-xs">Status</p>
+                    <p className="font-semibold text-green-600 text-xs sm:text-sm">Active</p>
                   </div>
                 </div>
               </div>
@@ -706,10 +715,10 @@ const Dashboard = () => {
 
       {/* Detailed Recent Activity */}
       <div className="bg-white rounded-lg sm:rounded-xl shadow-md border border-gray-100 p-4 sm:p-6 mb-4 sm:mb-6 lg:mb-8">
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-3 sm:mb-4">
           <div className="flex items-center gap-2">
-            <FiActivity className="w-5 h-5 text-blue-600" />
-            <h3 className="text-lg sm:text-xl font-bold text-gray-900">Recent Activity Timeline</h3>
+            <FiActivity className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
+            <h3 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900">Recent Activity Timeline</h3>
           </div>
           <button className="text-xs text-blue-600 hover:text-blue-700 font-medium">View All Activity</button>
         </div>
@@ -717,28 +726,28 @@ const Dashboard = () => {
           {recentActivity.map((activity) => {
             const Icon = getTypeIcon(activity.type);
             return (
-              <div key={activity.id} className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors border border-gray-100">
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 ${
+              <div key={activity.id} className="flex items-start gap-2 sm:gap-3 lg:gap-4 p-3 sm:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors border border-gray-100">
+                <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0 ${
                   activity.status === 'success' ? 'bg-green-100' :
                   activity.status === 'pending' ? 'bg-yellow-100' :
                   'bg-blue-100'
                 }`}>
-                  <Icon className={`w-6 h-6 ${
+                  <Icon className={`w-5 h-5 sm:w-6 sm:h-6 ${
                     activity.status === 'success' ? 'text-green-600' :
                     activity.status === 'pending' ? 'text-yellow-600' :
                     'text-blue-600'
                   }`} />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-start justify-between gap-2 mb-1">
-                    <p className="text-sm font-semibold text-gray-900">{activity.title}</p>
-                    <span className={`text-xs px-2 py-1 rounded-full font-medium flex-shrink-0 ${getStatusColor(activity.status)}`}>
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 sm:gap-2 mb-1">
+                    <p className="text-xs sm:text-sm font-semibold text-gray-900">{activity.title}</p>
+                    <span className={`text-xs px-2 py-0.5 sm:py-1 rounded-full font-medium flex-shrink-0 w-fit ${getStatusColor(activity.status)}`}>
                       {activity.status}
                     </span>
                   </div>
-                  <p className="text-xs text-gray-600 mb-2">{activity.details}</p>
-                  <div className="flex items-center gap-2">
-                    <FiClock className="w-3 h-3 text-gray-400" />
+                  <p className="text-xs text-gray-600 mb-1 sm:mb-2">{activity.details}</p>
+                  <div className="flex items-center gap-1 sm:gap-2">
+                    <FiClock className="w-3 h-3 text-gray-400 flex-shrink-0" />
                     <span className="text-xs text-gray-500">{activity.time}</span>
                   </div>
                 </div>
