@@ -43,32 +43,33 @@ const DashboardLayout = () => {
         {/* Top Header with Toggle Button */}
         <header className="bg-white shadow-md sticky top-0 z-50 border-b border-gray-200">
           <div className="px-4 sm:px-5 lg:px-8 py-4 sm:py-5 lg:py-4">
-            <div className="flex items-center justify-between gap-3 sm:gap-4">
-              <div className="flex items-center gap-3 sm:gap-4 flex-1 min-w-0">
+            <div className="flex items-center justify-between gap-2 sm:gap-4">
+              <div className="flex items-center gap-2 sm:gap-4 flex-1 min-w-0">
                 <button
                   onClick={toggleSidebar}
-                  className="lg:hidden p-2.5 sm:p-3 hover:bg-gray-100 active:bg-gray-200 rounded-xl transition-all duration-200 touch-manipulation flex-shrink-0 z-50 relative"
+                  className="lg:hidden p-2 sm:p-3 hover:bg-gray-100 active:bg-gray-200 rounded-xl transition-all duration-200 touch-manipulation flex-shrink-0 z-50 relative"
                   aria-label="Toggle sidebar"
                   type="button"
                   style={{ zIndex: 50 }}
                 >
-                  <FiMenu className="w-6 h-6 sm:w-5 sm:h-5 text-gray-700" />
+                  <FiMenu className="w-5 h-5 sm:w-5 sm:h-5 text-gray-700" />
                 </button>
-                <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 truncate">{getPageTitle()}</h1>
+                <h1 className="text-base sm:text-xl lg:text-2xl font-bold text-gray-900 truncate">{getPageTitle()}</h1>
               </div>
-              <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+              <div className="flex items-center gap-1.5 sm:gap-3 flex-shrink-0">
                 {/* Logo - visible on all screens including mobile */}
-                <div className="flex items-center flex-shrink-0">
+                <div className="flex items-center flex-shrink-0" style={{ display: 'flex', visibility: 'visible' }}>
                   <img 
                     src={logo} 
                     alt="Lucy Automation" 
-                    className="h-8 sm:h-9 lg:h-8 w-auto object-contain"
+                    className="h-7 sm:h-9 lg:h-8 w-auto object-contain"
+                    style={{ display: 'block', visibility: 'visible', opacity: 1, minWidth: '28px' }}
                   />
                 </div>
                 {/* Username - visible on all screens including mobile */}
                 {user?.username && (
-                  <div className="flex items-center">
-                    <span className="text-xs sm:text-sm font-semibold text-gray-700 px-2.5 sm:px-3 py-1.5 sm:py-2 bg-gray-100 rounded-lg whitespace-nowrap">
+                  <div className="flex items-center flex-shrink-0">
+                    <span className="text-xs sm:text-sm font-semibold text-gray-700 px-2 sm:px-3 py-1.5 sm:py-2 bg-gray-100 rounded-lg whitespace-nowrap">
                       {user.username}
                     </span>
                   </div>

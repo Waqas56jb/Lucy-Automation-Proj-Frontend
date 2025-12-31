@@ -54,7 +54,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         `}
         style={{ WebkitOverflowScrolling: 'touch' }}
       >
-        <div className="flex flex-col h-full overflow-hidden">
+        <div className="flex flex-col h-full overflow-hidden relative">
           {/* Sidebar Header / Logo */}
           <div className="relative flex items-center justify-between px-3 sm:px-4 lg:px-4 py-3 sm:py-4 lg:py-4 border-b border-slate-700/60 bg-slate-800/50 flex-shrink-0">
             <div className="flex items-center justify-center flex-1">
@@ -75,7 +75,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           </div>
 
           {/* Navigation Menu */}
-          <nav className="flex-1 overflow-y-auto overflow-x-hidden py-2 sm:py-3 lg:py-4 px-2 sm:px-3 lg:px-3 min-h-0 custom-scrollbar">
+          <nav className="flex-1 overflow-y-auto overflow-x-hidden py-2 sm:py-3 lg:py-4 px-2 sm:px-3 lg:px-3 min-h-0 custom-scrollbar pb-20 lg:pb-0">
             <ul className="space-y-1 sm:space-y-1.5 lg:space-y-1.5">
               {menuItems.map((item) => {
                 const Icon = item.icon;
@@ -108,7 +108,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           </nav>
 
           {/* Settings & Logout Section - Fixed at bottom, moved higher on mobile */}
-          <div className="mt-auto border-t border-slate-700/60 bg-slate-800/30 px-2 sm:px-3 lg:px-3 py-3 sm:py-2.5 lg:py-2.5 space-y-1.5 sm:space-y-2 flex-shrink-0 lg:pb-2.5 pb-4">
+          <div className="absolute bottom-0 left-0 right-0 border-t border-slate-700/60 bg-slate-800/30 px-2 sm:px-3 lg:px-3 py-2.5 sm:py-2.5 lg:py-2.5 space-y-1.5 sm:space-y-2 flex-shrink-0 lg:relative lg:mt-auto lg:pb-2.5 pb-3">
             <NavLink
               to="/dashboard/settings"
               onClick={() => {
