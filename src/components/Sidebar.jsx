@@ -75,8 +75,8 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             </button>
           </div>
 
-          {/* Navigation Menu - Reduced padding, better spacing */}
-          <nav className="flex-1 overflow-y-auto overflow-x-hidden py-2 sm:py-2.5 lg:py-4 px-2 sm:px-3 lg:px-3 min-h-0 custom-scrollbar pb-32 lg:pb-0">
+          {/* Navigation Menu - Reduced padding, better spacing with more bottom space for mobile */}
+          <nav className="flex-1 overflow-y-auto overflow-x-hidden py-2 sm:py-2.5 lg:py-4 px-2 sm:px-3 lg:px-3 min-h-0 custom-scrollbar pb-44 lg:pb-0">
             <ul className="space-y-1 sm:space-y-1 lg:space-y-1.5">
               {menuItems.map((item) => {
                 const Icon = item.icon;
@@ -108,8 +108,8 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             </ul>
           </nav>
 
-          {/* Settings & Logout Section - Moved higher, better spacing */}
-          <div className="absolute bottom-0 left-0 right-0 border-t border-slate-700/60 bg-slate-800/30 px-2 sm:px-3 lg:px-3 py-2.5 sm:py-2.5 lg:py-2.5 space-y-1.5 sm:space-y-1.5 flex-shrink-0 lg:relative lg:mt-auto lg:pb-2.5 pb-5">
+          {/* Settings & Logout Section - Moved much higher on mobile to be fully visible */}
+          <div className="absolute bottom-10 left-0 right-0 border-t border-slate-700/60 bg-slate-800/30 px-2 sm:px-3 lg:px-3 py-2.5 sm:py-2.5 lg:py-2.5 space-y-1.5 sm:space-y-1.5 flex-shrink-0 pb-3 lg:relative lg:bottom-0 lg:mt-auto lg:pb-2.5">
             <NavLink
               to="/dashboard/settings"
               onClick={() => {
