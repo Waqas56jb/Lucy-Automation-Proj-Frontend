@@ -334,32 +334,6 @@ const Settings = () => {
         })}
       </div>
 
-      {/* Account Settings Section (Optional - keep user settings) */}
-      <div className="mt-8 bg-white rounded-2xl shadow-lg border border-gray-200 p-6">
-        <h3 className="text-xl font-bold text-gray-900 mb-4">Account Information</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Username</label>
-            <p className="text-gray-900 font-semibold">{user?.username || 'N/A'}</p>
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-            <p className="text-gray-900 font-semibold">{user?.email || 'N/A'}</p>
-          </div>
-          {user?.phone_number && (
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-              <p className="text-gray-900 font-semibold">{user.phone_number}</p>
-            </div>
-          )}
-          {user?.country && (
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Country</label>
-              <p className="text-gray-900 font-semibold">{user.country}</p>
-            </div>
-          )}
-        </div>
-      </div>
     </div>
   );
 };

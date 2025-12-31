@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import { FiMenu } from 'react-icons/fi';
+import { useAuth } from '../context/AuthContext';
 import logo from '../assets/logo.png';
 
 const DashboardLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const location = useLocation();
+  const { user } = useAuth();
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -32,12 +34,12 @@ const DashboardLayout = () => {
   };
 
   return (
-    <div className="min-h-screen h-screen bg-gray-100 flex flex-col overflow-hidden">
+    <div className="min-h-screen h-screen bg-gray-100 flex overflow-hidden">
       {/* Sidebar */}
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col lg:ml-0 overflow-hidden bg-gray-50 h-screen w-full lg:w-auto">
+      <div className="flex-1 flex flex-col overflow-hidden bg-gray-50 h-screen w-full">
         {/* Top Header with Toggle Button */}
         <header className="bg-white shadow-sm sticky top-0 z-30 border-b border-gray-200">
           <div className="px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
@@ -53,7 +55,10 @@ const DashboardLayout = () => {
                 </button>
                 <h1 className="text-xl sm:text-2xl font-bold text-gray-800">{getPageTitle()}</h1>
               </div>
-              <div className="hidden sm:flex items-center">
+              <div className="hidden sm:flex items-center gap-3">
+                {user?.username && (
+                  <span className="text-xs font-semibold text-gray-600">{user.username}</span>
+                )}
                 <img 
                   src={logo} 
                   alt="Lucy Automation" 

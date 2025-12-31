@@ -87,106 +87,67 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Quick Actions */}
-        <div className="lg:col-span-2 bg-white rounded-xl shadow-md border border-gray-100 p-6">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-xl font-bold text-gray-900">Quick Actions</h3>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <button 
-              onClick={() => navigate('/dashboard/transcript')}
-              className="group p-5 border-2 border-gray-200 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all duration-200 text-left"
-            >
-              <div className="flex items-center justify-between mb-3">
-                <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-blue-600 transition-colors">
-                  <FiFileText className="w-5 h-5 text-blue-600 group-hover:text-white transition-colors" />
-                </div>
-                <FiArrowRight className="w-5 h-5 text-gray-400 group-hover:text-blue-600 transition-colors" />
-              </div>
-              <h4 className="font-semibold text-gray-900 mb-1">Create Transcript</h4>
-              <p className="text-sm text-gray-600">Start a new transcription project</p>
-            </button>
-
-            <button 
-              onClick={() => navigate('/dashboard/story-generate')}
-              className="group p-5 border-2 border-gray-200 rounded-xl hover:border-green-500 hover:bg-green-50 transition-all duration-200 text-left"
-            >
-              <div className="flex items-center justify-between mb-3">
-                <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center group-hover:bg-green-600 transition-colors">
-                  <FiZap className="w-5 h-5 text-green-600 group-hover:text-white transition-colors" />
-                </div>
-                <FiArrowRight className="w-5 h-5 text-gray-400 group-hover:text-green-600 transition-colors" />
-              </div>
-              <h4 className="font-semibold text-gray-900 mb-1">Generate Story</h4>
-              <p className="text-sm text-gray-600">Create engaging stories from content</p>
-            </button>
-
-            <button 
-              onClick={() => navigate('/dashboard/video-trim')}
-              className="group p-5 border-2 border-gray-200 rounded-xl hover:border-purple-500 hover:bg-purple-50 transition-all duration-200 text-left"
-            >
-              <div className="flex items-center justify-between mb-3">
-                <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center group-hover:bg-purple-600 transition-colors">
-                  <FiScissors className="w-5 h-5 text-purple-600 group-hover:text-white transition-colors" />
-                </div>
-                <FiArrowRight className="w-5 h-5 text-gray-400 group-hover:text-purple-600 transition-colors" />
-              </div>
-              <h4 className="font-semibold text-gray-900 mb-1">Trim Video</h4>
-              <p className="text-sm text-gray-600">Edit and trim your videos</p>
-            </button>
-
-            <button 
-              onClick={() => navigate('/dashboard/schedule-post')}
-              className="group p-5 border-2 border-gray-200 rounded-xl hover:border-orange-500 hover:bg-orange-50 transition-all duration-200 text-left"
-            >
-              <div className="flex items-center justify-between mb-3">
-                <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center group-hover:bg-orange-600 transition-colors">
-                  <FiCalendar className="w-5 h-5 text-orange-600 group-hover:text-white transition-colors" />
-                </div>
-                <FiArrowRight className="w-5 h-5 text-gray-400 group-hover:text-orange-600 transition-colors" />
-              </div>
-              <h4 className="font-semibold text-gray-900 mb-1">Schedule Post</h4>
-              <p className="text-sm text-gray-600">Plan and schedule your posts</p>
-            </button>
-          </div>
+      {/* Quick Actions */}
+      <div className="bg-white rounded-xl shadow-md border border-gray-100 p-6">
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-xl font-bold text-gray-900">Quick Actions</h3>
         </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <button 
+            onClick={() => navigate('/dashboard/transcript')}
+            className="group p-5 border-2 border-gray-200 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all duration-200 text-left"
+          >
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-blue-600 transition-colors">
+                <FiFileText className="w-5 h-5 text-blue-600 group-hover:text-white transition-colors" />
+              </div>
+              <FiArrowRight className="w-5 h-5 text-gray-400 group-hover:text-blue-600 transition-colors" />
+            </div>
+            <h4 className="font-semibold text-gray-900 mb-1">Create Transcript</h4>
+            <p className="text-sm text-gray-600">Start a new transcription project</p>
+          </button>
 
-        {/* Account Info Card */}
-        <div className="bg-white rounded-xl shadow-md border border-gray-100 p-6">
-          <h3 className="text-xl font-bold text-gray-900 mb-6">Account Information</h3>
-          <div className="space-y-4">
-            <div>
-              <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">Username</p>
-              <p className="text-sm font-semibold text-gray-900">{user?.username || 'N/A'}</p>
-            </div>
-            <div>
-              <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">Email</p>
-              <p className="text-sm font-semibold text-gray-900 break-all">{user?.email || 'N/A'}</p>
-            </div>
-            {user?.phone_number && (
-              <div>
-                <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">Phone</p>
-                <p className="text-sm font-semibold text-gray-900">{user.phone_number}</p>
+          <button 
+            onClick={() => navigate('/dashboard/story-generate')}
+            className="group p-5 border-2 border-gray-200 rounded-xl hover:border-green-500 hover:bg-green-50 transition-all duration-200 text-left"
+          >
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center group-hover:bg-green-600 transition-colors">
+                <FiZap className="w-5 h-5 text-green-600 group-hover:text-white transition-colors" />
               </div>
-            )}
-            {user?.country && (
-              <div>
-                <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">Country</p>
-                <p className="text-sm font-semibold text-gray-900">{user.country}</p>
-              </div>
-            )}
-            <div className="pt-4 border-t border-gray-200">
-              <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">Status</p>
-              <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${
-                user?.is_verified 
-                  ? 'bg-green-100 text-green-800' 
-                  : 'bg-yellow-100 text-yellow-800'
-              }`}>
-                {user?.is_verified ? 'Verified' : 'Not Verified'}
-              </span>
+              <FiArrowRight className="w-5 h-5 text-gray-400 group-hover:text-green-600 transition-colors" />
             </div>
-          </div>
+            <h4 className="font-semibold text-gray-900 mb-1">Generate Story</h4>
+            <p className="text-sm text-gray-600">Create engaging stories from content</p>
+          </button>
+
+          <button 
+            onClick={() => navigate('/dashboard/video-trim')}
+            className="group p-5 border-2 border-gray-200 rounded-xl hover:border-purple-500 hover:bg-purple-50 transition-all duration-200 text-left"
+          >
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center group-hover:bg-purple-600 transition-colors">
+                <FiScissors className="w-5 h-5 text-purple-600 group-hover:text-white transition-colors" />
+              </div>
+              <FiArrowRight className="w-5 h-5 text-gray-400 group-hover:text-purple-600 transition-colors" />
+            </div>
+            <h4 className="font-semibold text-gray-900 mb-1">Trim Video</h4>
+            <p className="text-sm text-gray-600">Edit and trim your videos</p>
+          </button>
+
+          <button 
+            onClick={() => navigate('/dashboard/schedule-post')}
+            className="group p-5 border-2 border-gray-200 rounded-xl hover:border-orange-500 hover:bg-orange-50 transition-all duration-200 text-left"
+          >
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center group-hover:bg-orange-600 transition-colors">
+                <FiCalendar className="w-5 h-5 text-orange-600 group-hover:text-white transition-colors" />
+              </div>
+              <FiArrowRight className="w-5 h-5 text-gray-400 group-hover:text-orange-600 transition-colors" />
+            </div>
+            <h4 className="font-semibold text-gray-900 mb-1">Schedule Post</h4>
+            <p className="text-sm text-gray-600">Plan and schedule your posts</p>
+          </button>
         </div>
       </div>
     </div>

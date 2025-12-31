@@ -48,7 +48,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           fixed top-0 left-0 h-screen bg-gradient-to-b from-slate-800 to-slate-900 shadow-2xl z-[70] transform transition-transform duration-300 ease-in-out
           ${isOpen ? 'translate-x-0' : '-translate-x-full'}
           lg:translate-x-0 lg:static lg:z-auto lg:h-screen
-          w-64 sm:w-72
+          w-56 sm:w-64
           touch-pan-y
           overflow-hidden
         `}
@@ -61,7 +61,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
               <img 
                 src={logo} 
                 alt="Lucy Automation Logo" 
-                className="h-14 sm:h-16 w-auto object-contain transition-transform duration-300 hover:scale-105"
+                className="h-12 sm:h-14 w-auto object-contain transition-transform duration-300 hover:scale-105"
               />
             </div>
             <button
@@ -91,15 +91,15 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                         }
                       }}
                       className={({ isActive }) =>
-                        `group flex items-center gap-3 px-3 sm:px-4 py-3 sm:py-3.5 rounded-xl transition-all duration-200 touch-manipulation ${
+                        `group flex items-center gap-2.5 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl transition-all duration-200 touch-manipulation ${
                           isActive
                             ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30 scale-[1.02]'
                             : 'text-slate-300 hover:bg-slate-700/60 hover:text-white hover:scale-[1.01] active:bg-slate-700/80'
                         }`
                       }
                     >
-                      <Icon className="w-5 h-5 flex-shrink-0 transition-transform duration-200 group-hover:scale-110" />
-                      <span className="font-medium text-sm leading-tight">{item.label}</span>
+                      <Icon className="w-4 h-4 flex-shrink-0 transition-transform duration-200 group-hover:scale-110" />
+                      <span className="font-medium text-xs leading-tight">{item.label}</span>
                     </NavLink>
                   </li>
                 );
@@ -108,7 +108,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           </nav>
 
           {/* Settings & Logout Section - Fixed at bottom */}
-          <div className="mt-auto border-t border-slate-700/60 bg-slate-800/30 px-3 sm:px-4 py-3 sm:py-4 space-y-2">
+          <div className="mt-auto border-t border-slate-700/60 bg-slate-800/30 px-3 sm:px-4 py-2.5 sm:py-3 space-y-2">
             <NavLink
               to="/dashboard/settings"
               onClick={() => {
@@ -117,24 +117,24 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                 }
               }}
               className={({ isActive }) =>
-                `group flex items-center gap-3 px-3 sm:px-4 py-3 sm:py-3.5 rounded-xl transition-all duration-200 touch-manipulation ${
+                `group flex items-center gap-2.5 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl transition-all duration-200 touch-manipulation ${
                   isActive
                     ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/30 scale-[1.02]'
                     : 'text-slate-300 hover:bg-slate-700/60 hover:text-white hover:scale-[1.01] active:bg-slate-700/80'
                 }`
               }
             >
-              <FiSettings className="w-5 h-5 flex-shrink-0 transition-transform duration-200 group-hover:rotate-90" />
-              <span className="font-medium text-sm">Settings</span>
+              <FiSettings className="w-4 h-4 flex-shrink-0 transition-transform duration-200 group-hover:rotate-90" />
+              <span className="font-medium text-xs">Settings</span>
             </NavLink>
             {/* Logout button - visible on all screens */}
             <button
               onClick={handleLogout}
               type="button"
-              className="w-full flex items-center gap-3 px-3 sm:px-4 py-3 sm:py-3.5 rounded-xl text-slate-300 hover:bg-red-600/20 hover:text-red-400 hover:border-red-500/30 active:bg-red-600/30 transition-all duration-200 font-medium group border border-transparent hover:border-red-500/30 touch-manipulation"
+              className="w-full flex items-center gap-2.5 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl text-slate-300 hover:bg-red-600/20 hover:text-red-400 hover:border-red-500/30 active:bg-red-600/30 transition-all duration-200 font-medium group border border-transparent hover:border-red-500/30 touch-manipulation"
             >
-              <FiLogOut className="w-5 h-5 flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
-              <span className="text-sm">Logout</span>
+              <FiLogOut className="w-4 h-4 flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
+              <span className="text-xs">Logout</span>
             </button>
           </div>
         </div>
