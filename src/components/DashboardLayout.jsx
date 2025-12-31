@@ -24,19 +24,20 @@ const DashboardLayout = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-100 flex">
+    <div className="min-h-screen h-screen bg-gray-100 flex overflow-hidden">
       {/* Sidebar */}
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col lg:ml-0">
+      <div className="flex-1 flex flex-col lg:ml-0 overflow-hidden bg-gray-50 h-screen">
         {/* Top Header with Toggle Button */}
-        <header className="bg-white shadow-sm sticky top-0 z-30">
+        <header className="bg-white shadow-sm sticky top-0 z-30 border-b border-gray-200">
           <div className="px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex items-center gap-4">
               <button
                 onClick={toggleSidebar}
-                className="lg:hidden p-2 hover:bg-gray-100 rounded-lg transition"
+                className="lg:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                aria-label="Toggle sidebar"
               >
                 <FiMenu className="w-6 h-6 text-gray-600" />
               </button>
@@ -46,7 +47,7 @@ const DashboardLayout = () => {
         </header>
 
         {/* Page Content */}
-        <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+        <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 bg-gray-50 min-h-0">
           <Outlet />
         </main>
       </div>
