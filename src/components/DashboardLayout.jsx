@@ -36,11 +36,11 @@ const DashboardLayout = () => {
             <div className="flex items-center gap-4">
               <button
                 onClick={toggleSidebar}
-                className="lg:hidden p-2 hover:bg-gray-100 active:bg-gray-200 rounded-lg transition-colors touch-manipulation"
+                className="lg:hidden p-1.5 hover:bg-gray-100 active:bg-gray-200 rounded-lg transition-colors touch-manipulation"
                 aria-label="Toggle sidebar"
                 type="button"
               >
-                <FiMenu className="w-6 h-6 text-gray-600" />
+                <FiMenu className="w-4 h-4 text-gray-600" />
               </button>
               <h1 className="text-xl sm:text-2xl font-bold text-gray-800">{getPageTitle()}</h1>
             </div>

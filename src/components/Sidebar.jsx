@@ -10,6 +10,7 @@ import {
   FiSettings,
   FiLogOut,
   FiX,
+  FiMenu,
 } from 'react-icons/fi';
 import logo from '../assets/logo.png';
 
@@ -54,8 +55,8 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
       >
         <div className="flex flex-col h-full">
           {/* Sidebar Header / Logo */}
-          <div className="relative flex items-center justify-center px-4 sm:px-6 py-4 sm:py-5 border-b border-slate-700/60 bg-slate-800/50">
-            <div className="flex items-center justify-center w-full">
+          <div className="relative flex items-center justify-between px-4 sm:px-6 py-4 sm:py-5 border-b border-slate-700/60 bg-slate-800/50">
+            <div className="flex items-center justify-center flex-1">
               <img 
                 src={logo} 
                 alt="Lucy Automation Logo" 
@@ -64,11 +65,11 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             </div>
             <button
               onClick={toggleSidebar}
-              className="lg:hidden absolute top-3 right-3 sm:top-4 sm:right-4 p-2.5 hover:bg-slate-700/70 active:bg-slate-700 rounded-lg transition-all duration-200 active:scale-95 touch-manipulation z-10"
+              className="lg:hidden p-1.5 hover:bg-slate-700/70 active:bg-slate-700 rounded-lg transition-all duration-200 active:scale-95 touch-manipulation z-10"
               aria-label="Close sidebar"
               type="button"
             >
-              <FiX className="w-5 h-5 sm:w-6 sm:h-6 text-slate-300" />
+              <FiX className="w-4 h-4 text-slate-300" />
             </button>
           </div>
 
@@ -125,10 +126,11 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
               <FiSettings className="w-5 h-5 flex-shrink-0 transition-transform duration-200 group-hover:rotate-90" />
               <span className="font-medium text-sm">Settings</span>
             </NavLink>
+            {/* Logout button - hidden on mobile */}
             <button
               onClick={handleLogout}
               type="button"
-              className="w-full flex items-center gap-3 px-3 sm:px-4 py-3 sm:py-3.5 rounded-xl text-slate-300 hover:bg-red-600/20 hover:text-red-400 hover:border-red-500/30 active:bg-red-600/30 transition-all duration-200 font-medium group border border-transparent hover:border-red-500/30 touch-manipulation"
+              className="hidden lg:flex w-full items-center gap-3 px-3 sm:px-4 py-3 sm:py-3.5 rounded-xl text-slate-300 hover:bg-red-600/20 hover:text-red-400 hover:border-red-500/30 active:bg-red-600/30 transition-all duration-200 font-medium group border border-transparent hover:border-red-500/30 touch-manipulation"
             >
               <FiLogOut className="w-5 h-5 flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
               <span className="text-sm">Logout</span>
