@@ -26,7 +26,12 @@ export const AuthProvider = ({ children }) => {
         if (sessionUser) {
           try {
             const userData = JSON.parse(sessionUser);
-            setUser(userData);
+            // Validate user data structure
+            if (userData && typeof userData === 'object') {
+              setUser(userData);
+            } else {
+              throw new Error('Invalid user data structure');
+            }
           } catch (error) {
             console.error('Error parsing user session:', error);
             Cookies.remove('user_session');
@@ -37,13 +42,20 @@ export const AuthProvider = ({ children }) => {
         }
       } catch (error) {
         console.error('Error checking session:', error);
+        Cookies.remove('user_session');
         setUser(null);
       } finally {
+        // Always set loading to false, even if there's an error
         setLoading(false);
       }
     };
 
-    checkSession();
+    // Add a small delay to ensure DOM is ready
+    const timer = setTimeout(() => {
+      checkSession();
+    }, 0);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const login = async (email, password) => {
